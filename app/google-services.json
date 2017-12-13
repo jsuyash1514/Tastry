@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "773826891847",
+    "firebase_url": "https://tastry-99868.firebaseio.com",
+    "project_id": "tastry-99868",
+    "storage_bucket": "tastry-99868.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:773826891847:android:8a1b059ccc0f2a82",
+        "android_client_info": {
+          "package_name": "com.example.suyash.tastry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "773826891847-qu8d2opj4jp8l8j603q2tr1886tmcdq7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSp4cIgs1eksrc1kuFrBg4HefOk2jP-P4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
