@@ -28,6 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import android.app.ProgressDialog;
@@ -56,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login;
     private TextView signup;
 
+
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
 
@@ -69,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         if (firebaseAuth.getCurrentUser() != null){
             finish();
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+            startActivity(new Intent(getApplicationContext(),NavigationDrawerActivity.class));
         }
 
 
@@ -78,6 +80,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         login=(Button)findViewById(R.id.button);
         signup=(TextView)findViewById(R.id.signUp);
+
+
 
          progressDialog = new ProgressDialog(this);
 
@@ -110,7 +114,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                             if (task.isSuccessful()){
                                 finish();
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(),NavigationDrawerActivity.class));
+                            }
+
+                            else{
+                                Toast.makeText(getApplicationContext(), "Incorrect Email or Password",Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
@@ -118,7 +126,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view){
-        if (view==login){
+        if (view == login){
             userLogin();
         }
 

@@ -76,9 +76,8 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:padding="12dp"
@@ -92,7 +91,7 @@
             android:layout_marginTop="10dp"
             android:paddingBottom="10dp"
             android:paddingLeft="10dp"
-            android:text="Sign Up"
+            android:text="Not having account?  Sign Up"
             android:textSize="15sp"/>
 
 

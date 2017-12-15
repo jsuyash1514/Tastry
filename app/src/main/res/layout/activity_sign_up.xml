@@ -6,21 +6,17 @@
     android:layout_height="match_parent"
     tools:context="com.example.suyash.tastry.SignUpActivity">
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="15dp"
-            android:src="@drawable/tastry"/>
-
-        <TextView
+    <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -33,13 +29,63 @@
 
 
             <EditText
-                android:id="@+id/emAil"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/NAME"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/one_time"
+                android:baselineAligned="false"
+                android:hint="Name"
+                android:inputType="textPersonName"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/ENR"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/one_time"
                 android:layout_marginTop="10dp"
                 android:baselineAligned="false"
+                android:hint="Enrollment No."
+                android:inputType="number"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <Spinner
+                android:id="@+id/BHAWAN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/one_time"
+                android:baselineAligned="false"
+                android:layout_marginTop="10dp"
+                android:entries="@array/bhawan" />
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <EditText
+                android:id="@+id/emAil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/one_time"
+                android:baselineAligned="false"
                 android:hint="Email"
+                android:layout_marginBottom="10dp"
                 android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -53,7 +99,7 @@
                 android:id="@+id/passwrd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="Set new password"
                 android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>
@@ -61,7 +107,7 @@
 
         <Button
             android:id="@+id/register"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
@@ -74,7 +120,6 @@
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
             android:text="Already have account? Sign In"/>
-
 
     </LinearLayout>
 
