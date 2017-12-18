@@ -10,6 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.widget.DatePicker;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -18,6 +22,7 @@ import android.view.MenuItem;
  * in a {@link ItemListActivity}.
  */
 public class ItemDetailActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,16 @@ public class ItemDetailActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        String date;
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null)
+        {
+            date = bundle.getString("passdate");
+            TextView txtdate = (TextView)findViewById(R.id.selectDate);
+            txtdate.setText(date);
         }
 
         // savedInstanceState is non-null when there is fragment state

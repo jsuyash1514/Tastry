@@ -32,6 +32,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
     private Button proceed;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    private DatePicker datePicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +47,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
         toggle.syncState();
 
 
-        name = (TextView)findViewById(R.id.username);
-        email = (TextView)findViewById(R.id.tv_email);
+
         proceed = (Button)findViewById(R.id.proceed);
+        View header = ((NavigationView)findViewById(R.id.nav_view)).getHeaderView(0);
+
+        TextView textView = ((TextView)header.findViewById(R.id.tv_email));
+        final TextView tv = ((TextView)header.findViewById(R.id.username));
+        DatePicker datePicker = (DatePicker)findViewById(R.id.calendar);
+
 
         proceed.setOnClickListener(this);
 
@@ -62,14 +68,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
          }
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
-         email.setText(user.getEmail());
+         textView.setText(user.getEmail());
 
          DatabaseReference users = databaseReference.child("users").child(firebaseAuth.getCurrentUser().getUid()).child("name");
          users.addValueEventListener(new ValueEventListener() {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
                  String names = dataSnapshot.getValue(String.class);
-                 name.setText(names);
+                 tv.setText(names);
              }
 
              @Override
@@ -101,7 +107,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
     public void onClick(View view){
         if(view == proceed){
             finish();
-            startActivity(new Intent(this,ItemListActivity.class));
+            StringBuilder builder = new StringBuilder();
+            builder.append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth()+"/").append(datePicker.getYear());
+            String dmy = builder.toString();
+            Intent intent = new Intent(this,ItemListActivity.class);
+            intent.putExtra("passdate",dmy);
+            startActivity(intent);
+
         }
     }
 
