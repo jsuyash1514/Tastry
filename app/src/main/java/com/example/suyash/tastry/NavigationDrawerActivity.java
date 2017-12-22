@@ -53,7 +53,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
 
         TextView textView = ((TextView)header.findViewById(R.id.tv_email));
         final TextView tv = ((TextView)header.findViewById(R.id.username));
-        DatePicker datePicker = (DatePicker)findViewById(R.id.calendar);
+        datePicker = (DatePicker)findViewById(R.id.calendar);
 
 
         proceed.setOnClickListener(this);
@@ -110,7 +110,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
             StringBuilder builder = new StringBuilder();
             builder.append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth()+"/").append(datePicker.getYear());
             String dmy = builder.toString();
-            Intent intent = new Intent(this,ItemListActivity.class);
+            Intent intent = new Intent(this,Breakfast_lunch_dinner.class);
             intent.putExtra("passdate",dmy);
             startActivity(intent);
 

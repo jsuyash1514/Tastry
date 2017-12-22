@@ -15,37 +15,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+        <activity android:name=".user_or_workerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login" />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".NavigationDrawerActivity"
             android:label="@string/select_date"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".ItemListActivity"
-            android:label="@string/title_item_list"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.suyash.tastry.ItemListActivity" />
-        </activity>
-        <activity
-            android:name=".PersonalInfo"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity android:name=".Breakfast_lunch_dinner" />
+        <activity
+            android:name=".MemberLogin"
+            android:label="Sign in" />
+        <activity android:name=".MemberPersonalInfo"
+            android:label="@string/select_date"/>
     </application>
 
 </manifest>

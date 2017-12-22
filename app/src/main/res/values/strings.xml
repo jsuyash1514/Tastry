@@ -90,5 +90,6 @@
         <item>Sarojini Bhawan</item>
         <item>Kasturba Bhawan</item>
     </string-array>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>
