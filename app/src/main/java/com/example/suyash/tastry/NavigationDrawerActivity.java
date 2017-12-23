@@ -108,7 +108,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
         if(view == proceed){
             finish();
             StringBuilder builder = new StringBuilder();
-            builder.append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth()+"/").append(datePicker.getYear());
+            builder.append(datePicker.getDayOfMonth()+"/").append((datePicker.getMonth()+1)+"/").append(datePicker.getYear());
             String dmy = builder.toString();
             Intent intent = new Intent(this,Breakfast_lunch_dinner.class);
             intent.putExtra("passdate",dmy);
