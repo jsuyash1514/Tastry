@@ -44,8 +44,13 @@
         <activity
             android:name=".MemberResult"
             android:label="Polling Results" />
-        <activity android:name=".VotingActivity"
-            android:label="Poll"></activity>
+        <activity
+            android:name=".VotingActivity"
+            android:label="Poll" />
+        <activity android:name=".MessageActivity"
+            android:label="Message">
+
+        </activity>
     </application>
 
 </manifest>

@@ -28,14 +28,7 @@ public class Breakfast_lunch_dinner extends AppCompatActivity implements View.On
             txtdate.setText(date);
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         breakfast = (TextView)findViewById(R.id.breakfast);
         lunch = (TextView)findViewById(R.id.lunch);

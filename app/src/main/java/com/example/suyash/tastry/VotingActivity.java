@@ -1,6 +1,7 @@
 package com.example.suyash.tastry;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,11 +26,23 @@ public class VotingActivity extends AppCompatActivity implements View.OnClickLis
     private Button vote;
     private FirebaseAuth firebaseAuth;
     public String names1,names2,names3,names4,names5,names6,names7,names8,en;
+    FloatingActionButton fab;
+
+    public VotingActivity(){
+
+    }
+
+    public VotingActivity(FloatingActionButton fab) {
+        this.fab = fab;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
+
+        fab  = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(this);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
@@ -203,6 +216,13 @@ public class VotingActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         if (v == vote){
             recordResponse();
+        }
+        if (v == fab){
+            finish();
+            Intent intent = new Intent(this,MessageActivity.class);
+            intent.putExtra("passmeal2",meal);
+            intent.putExtra("passdate2",date);
+            startActivity(intent);
         }
     }
 

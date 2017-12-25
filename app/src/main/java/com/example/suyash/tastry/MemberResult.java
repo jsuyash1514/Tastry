@@ -12,7 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MemberResult extends AppCompatActivity {
     public  String date,meal,names1,names2,names3,names4,names5,names6,names7,names8;
-    public TextView txtdate,m1,m2,m3,m4,m5,m6,m7,m8,p1,p2,p3,p4,p5,p6,p7,p8;
+    public TextView txtdate,m1,m2,m3,m4,m5,m6,m7,m8,p1,p2,p3,p4,p5,p6,p7,p8,user,user1,feed,sick_diet;
     public long r2=0,r3=0,r4=0,r5=0,r6=0,r7=0,r8=0;
     private DatabaseReference databaseReference;
 
@@ -56,6 +56,10 @@ public class MemberResult extends AppCompatActivity {
         p6 = (TextView)findViewById(R.id.p6);
         p7 = (TextView)findViewById(R.id.p7);
         p8 = (TextView)findViewById(R.id.p8);
+        user = (TextView)findViewById(R.id.user);
+        user1 = (TextView)findViewById(R.id.user1);
+        feed = (TextView)findViewById(R.id.feed);
+        sick_diet = (TextView)findViewById(R.id.sickDiet);
 
         DatabaseReference food1 = databaseReference.child(date).child(meal).child("Food Option 1");
         food1.addValueEventListener(new ValueEventListener() {
@@ -289,7 +293,45 @@ public class MemberResult extends AppCompatActivity {
         });}
 
 
+        DatabaseReference feedback = databaseReference.child(date).child(meal).child("Feedback");
+        feedback.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long n = dataSnapshot.getChildrenCount();
+                for (int i=1;i<=n;i++){
+                    Iterable<DataSnapshot> en = dataSnapshot.getChildren();
+                    user.setText(String.valueOf(en));
+                    String feed1 = (String) dataSnapshot.child(String.valueOf(en)).getValue();
+                    feed.setText(feed1);
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        final DatabaseReference sick = databaseReference.child(date).child(meal).child("Sick Diet");
+        sick.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long n = dataSnapshot.getChildrenCount();
+                for (int i=1;i<=n;i++){
+                    Iterable<DataSnapshot> en = dataSnapshot.getChildren();
+                    user1.setText(String.valueOf(en));
+                    String sick1 = (String) dataSnapshot.child(String.valueOf(en)).getValue();
+                    sick_diet.setText(sick1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 
