@@ -25,11 +25,11 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         if(v == proceed){
             finish();
-            StringBuilder builder = new StringBuilder();
-            builder.append(datePicker.getDayOfMonth()+"/").append((datePicker.getMonth()+1)+"/").append(datePicker.getYear());
-            String dmy = builder.toString();
+            StringBuilder b = new StringBuilder();
+            b.append(datePicker.getYear()+"/").append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth());
+            String dm = b.toString();
             Intent intent = new Intent(this,memberBraekfastLunchDinner.class);
-            intent.putExtra("passdate",dmy);
+            intent.putExtra("passdat",dm);
             startActivity(intent);
 
         }

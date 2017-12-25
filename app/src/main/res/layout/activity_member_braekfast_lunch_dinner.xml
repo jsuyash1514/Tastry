@@ -23,7 +23,7 @@
         android:textSize="40sp"/>
 
         <TextView
-            android:id="@+id/breakfast"
+            android:id="@+id/memberbreakfast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -31,7 +31,7 @@
             android:textSize="40sp"/>
 
         <TextView
-            android:id="@+id/lunch"
+            android:id="@+id/memberlunch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -40,7 +40,7 @@
             android:textSize="40sp"/>
 
         <TextView
-            android:id="@+id/dinner"
+            android:id="@+id/memberdinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

@@ -1,5 +1,6 @@
 package com.example.suyash.tastry;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
 //    Process dialog box
     private EditText email , password;
     private Button login;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -22,6 +24,8 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
         password = (EditText)findViewById(R.id.memberpassword);
         login = (Button)findViewById(R.id.memberbutton);
         login.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
 
 
     }
@@ -38,9 +42,16 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
             Toast.makeText(this,"Please enter Password",Toast.LENGTH_LONG).show();
             return;
         }
+
+        progressDialog.setMessage("Logging in Please wait...");
+        progressDialog.show();
+
         DatabaseAccess databaseAccess = new DatabaseAccess (this);
         databaseAccess.open();
         String password = databaseAccess.searchPass(em);
+
+        progressDialog.dismiss();
+
         if (pw.equals(password)){
             finish();
             startActivity(new Intent(getApplicationContext(),MemberPersonalInfo.class));

@@ -91,5 +91,7 @@
         <item>Kasturba Bhawan</item>
     </string-array>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_members_upload_or_results">MembersUploadOrResults</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 
 </resources>

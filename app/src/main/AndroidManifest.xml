@@ -37,7 +37,15 @@
         <activity
             android:name=".MemberPersonalInfo"
             android:label="@string/select_date" />
-        <activity android:name=".memberBraekfastLunchDinner"></activity>
+        <activity android:name=".memberBraekfastLunchDinner" />
+        <activity
+            android:name=".MemberUpload"
+            android:label="Upload food options" />
+        <activity
+            android:name=".MemberResult"
+            android:label="Polling Results" />
+        <activity android:name=".VotingActivity"
+            android:label="Poll"></activity>
     </application>
 
 </manifest>

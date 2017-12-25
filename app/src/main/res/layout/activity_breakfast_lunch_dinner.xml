@@ -31,13 +31,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Breakfast"
-                android:textSize="40sp"/>
+                android:textSize="40sp"
+                android:padding="10dp"/>
 
             <TextView
                 android:id="@+id/lunch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:padding="10dp"
                 android:text="Lunch"
                 android:textSize="40sp"/>
 
@@ -45,7 +46,7 @@
                 android:id="@+id/dinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:padding="10dp"
                 android:text="Dinner"
                 android:textSize="40sp"/>
         </LinearLayout>
