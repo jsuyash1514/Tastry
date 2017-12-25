@@ -19,6 +19,8 @@ public class Breakfast_lunch_dinner extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_breakfast_lunch_dinner);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)

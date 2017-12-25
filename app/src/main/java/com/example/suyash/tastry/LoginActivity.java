@@ -74,6 +74,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(new Intent(getApplicationContext(),NavigationDrawerActivity.class));
         }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         EMail=(EditText)findViewById(R.id.email);
         PW=(EditText)findViewById(R.id.password);

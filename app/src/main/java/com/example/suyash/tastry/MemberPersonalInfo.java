@@ -16,6 +16,8 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_personal_info);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         proceed = (Button)findViewById(R.id.memberproceed);
         datePicker = (DatePicker)findViewById(R.id.membercalendar);
         proceed.setOnClickListener(this);

@@ -53,14 +53,15 @@
                 android:layout_below="@id/one_time"
                 android:layout_marginTop="10dp"
                 android:baselineAligned="false"
-                android:hint="Email"
+                android:hint="  Email"
                 android:inputType="textEmailAddress"/>
         </android.support.design.widget.TextInputLayout>
 
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
 
 
             <EditText
@@ -68,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
+
                 android:inputType="textPassword"/>
 
         </android.support.design.widget.TextInputLayout>

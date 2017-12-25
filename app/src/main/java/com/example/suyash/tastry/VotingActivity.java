@@ -26,14 +26,14 @@ public class VotingActivity extends AppCompatActivity implements View.OnClickLis
     private Button vote;
     private FirebaseAuth firebaseAuth;
     public String names1,names2,names3,names4,names5,names6,names7,names8,en;
-    FloatingActionButton fab;
+
 
     public VotingActivity(){
 
     }
 
     public VotingActivity(FloatingActionButton fab) {
-        this.fab = fab;
+
     }
 
     @Override
@@ -41,8 +41,8 @@ public class VotingActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voting);
 
-        fab  = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
@@ -217,60 +217,117 @@ public class VotingActivity extends AppCompatActivity implements View.OnClickLis
         if (v == vote){
             recordResponse();
         }
-        if (v == fab){
-            finish();
-            Intent intent = new Intent(this,MessageActivity.class);
-            intent.putExtra("passmeal2",meal);
-            intent.putExtra("passdate2",date);
-            startActivity(intent);
-        }
+
+
     }
 
     private void recordResponse() {
+
+        Intent intent = new Intent(this,StudentResult.class);
+        if (names1 != null){
         if (fo1.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names1).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi1",names1);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names1).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names2 != null){
         if (fo2.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names2).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi2",names2);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names2).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names3 != null){
         if (fo3.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names3).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi3",names3);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names3).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names4 != null){
         if (fo4.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names4).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi4",names4);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names4).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names5 != null){
         if (fo5.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names5).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi5",names5);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names5).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names6 != null){
         if (fo6.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names6).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi6",names6);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names6).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names7 != null){
         if (fo7.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names7).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi7",names7);
         }
+        else{
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference responceDB = databaseReference.child(meal);
+            responceDB.child("Result").child(names7).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+        if (names8 != null){
         if (fo8.isChecked()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
             DatabaseReference responceDB = databaseReference.child(meal);
             responceDB.child("Result").child(names8).child(firebaseAuth.getCurrentUser().getUid()).setValue(en);
+            intent.putExtra("passfi8",names8);
         }
+        else{
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+        DatabaseReference responceDB = databaseReference.child(meal);
+        responceDB.child("Result").child(names8).child(firebaseAuth.getCurrentUser().getUid()).setValue(null);
+        }}
+
 
         Toast.makeText(getApplicationContext(), "Responses recorded successfully",Toast.LENGTH_LONG).show();
         finish();
-        startActivity(new Intent(this,NavigationDrawerActivity.class));
+
+        intent.putExtra("passmeal2",meal);
+        intent.putExtra("passdate2",date);
+        startActivity(intent);
 
     }
 }

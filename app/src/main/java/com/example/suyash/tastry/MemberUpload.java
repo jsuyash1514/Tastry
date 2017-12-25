@@ -32,7 +32,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         databaseReference = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -46,7 +46,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
 
         Bundle b = getIntent().getExtras();
-        if (bundle != null)
+        if (b != null)
         {
             meal = bundle.getString("passmeal");
             TextView txtmeal = (TextView)findViewById(R.id.membermeal);

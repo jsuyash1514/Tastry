@@ -20,6 +20,10 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_login);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         email = (EditText)findViewById(R.id.memberemail);
         password = (EditText)findViewById(R.id.memberpassword);
         login = (Button)findViewById(R.id.memberbutton);

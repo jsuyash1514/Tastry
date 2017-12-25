@@ -17,7 +17,7 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_braekfast_lunch_dinner);
 
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
