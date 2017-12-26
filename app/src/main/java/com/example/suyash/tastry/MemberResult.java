@@ -32,7 +32,6 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_result);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -82,6 +81,24 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names1 = dataSnapshot.getValue(String.class);
                 m11.setText(names1);
+
+                if (names1 != null && !names1.isEmpty()){
+                    DatabaseReference per1 = databaseReference.child(date).child(meal).child("Result").child(names1);
+                    per1.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long r1 = dataSnapshot.getChildrenCount();
+                            p11.setText(String.valueOf(r1));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
+
+
             }
 
             @Override
@@ -96,6 +113,21 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names2 = dataSnapshot.getValue(String.class);
                 m2.setText(names2);
+
+                if (names2 != null && !names2.isEmpty()){
+                    DatabaseReference per2 = databaseReference.child(date).child(meal).child("Result").child(names2);
+                    per2.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r2 = (int) dataSnapshot.getChildrenCount();
+                            p2.setText(String.valueOf(r2));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
             }
 
             @Override
@@ -110,6 +142,22 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names3 = dataSnapshot.getValue(String.class);
                 m3.setText(names3);
+
+
+                if (names3 != null && !names3.isEmpty()){
+                    DatabaseReference per3 = databaseReference.child(date).child(meal).child("Result").child(names3);
+                    per3.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r3 = (int) dataSnapshot.getChildrenCount();
+                            p3.setText(String.valueOf(r3));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
             }
 
             @Override
@@ -124,6 +172,22 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names4 = dataSnapshot.getValue(String.class);
                 m4.setText(names4);
+//                p4.setText(names4);
+                if (names4 != null && !names4.isEmpty()){
+                    DatabaseReference per4 = databaseReference.child(date).child(meal).child("Result").child(names4);
+                    per4.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r4 = (int) dataSnapshot.getChildrenCount();
+                            p4.setText(String.valueOf(r4));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
+
             }
 
             @Override
@@ -138,6 +202,21 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names5 = dataSnapshot.getValue(String.class);
                 m5.setText(names5);
+
+                if (names5 != null && !names5.isEmpty()){
+                    DatabaseReference per5 = databaseReference.child(date).child(meal).child("Result").child(String.valueOf(names5));
+                    per5.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r5 = (int) dataSnapshot.getChildrenCount();
+                            p5.setText(String.valueOf(r5));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
             }
 
             @Override
@@ -152,6 +231,21 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names6 = dataSnapshot.getValue(String.class);
                 m6.setText(names6);
+
+                if (names6 != null && !names6.isEmpty()){
+                    DatabaseReference per6 = databaseReference.child(date).child(meal).child("Result").child(names6);
+                    per6.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r6 = (int) dataSnapshot.getChildrenCount();
+                            p6.setText(String.valueOf(r6));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
             }
 
             @Override
@@ -166,6 +260,21 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names7 = dataSnapshot.getValue(String.class);
                 m7.setText(names7);
+
+                if (names7 != null && !names7.isEmpty()){
+                    DatabaseReference per7 = databaseReference.child(date).child(meal).child("Result").child(names7);
+                    per7.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r7 = (int) dataSnapshot.getChildrenCount();
+                            p7.setText(String.valueOf(r7));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
             }
 
             @Override
@@ -180,6 +289,21 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             public void onDataChange(DataSnapshot dataSnapshot) {
                 names8 = dataSnapshot.getValue(String.class);
                 m8.setText(names8);
+
+                if (names8 != null && !names8.isEmpty()){
+                    DatabaseReference per8 = databaseReference.child(date).child(meal).child("Result").child(names8);
+                    per8.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            r8 = (int) dataSnapshot.getChildrenCount();
+                            p8.setText(String.valueOf(r8));
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });}
             }
 
             @Override
@@ -187,129 +311,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        if (names1 != null){
-        DatabaseReference per1 = databaseReference.child(date).child(meal).child("Result").child(names1);
-        per1.addValueEventListener(new ValueEventListener() {
-            public static final String TAG = "Member Results" ;
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long r1 = dataSnapshot.getChildrenCount();
-                Log.d(TAG, "No.of children"+String.valueOf(r1));
-                p11.setText(String.valueOf(r1));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names2 != null){
-        DatabaseReference per2 = databaseReference.child(date).child(meal).child("Result").child(names2);
-        per2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r2 = (int) dataSnapshot.getChildrenCount();
-                p2.setText(String.valueOf(r2));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names3 != null){
-        DatabaseReference per3 = databaseReference.child(date).child(meal).child("Result").child(names3);
-        per3.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r3 = (int) dataSnapshot.getChildrenCount();
-                p3.setText(String.valueOf(r3));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names4 != null){
-        DatabaseReference per4 = databaseReference.child(date).child(meal).child("Result").child(names4);
-        per4.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r4 = (int) dataSnapshot.getChildrenCount();
-                p4.setText(String.valueOf(r4));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names5 != null){
-        DatabaseReference per5 = databaseReference.child(date).child(meal).child("Result").child(names5);
-        per5.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r5 = (int) dataSnapshot.getChildrenCount();
-                p5.setText(String.valueOf(r5));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names6 != null){
-        DatabaseReference per6 = databaseReference.child(date).child(meal).child("Result").child(names6);
-        per6.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r6 = (int) dataSnapshot.getChildrenCount();
-                p6.setText(String.valueOf(r6));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names7 != null){
-        DatabaseReference per7 = databaseReference.child(date).child(meal).child("Result").child(names7);
-        per7.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r7 = (int) dataSnapshot.getChildrenCount();
-                p7.setText(String.valueOf(r7));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-
-        if (names8 != null){
-        DatabaseReference per8 = databaseReference.child(date).child(meal).child("Result").child(names8);
-        per8.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                r8 = (int) dataSnapshot.getChildrenCount();
-                p8.setText(String.valueOf(r8));
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });}
-        }
+    }
 
     @Override
     public void onClick(View v) {

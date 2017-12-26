@@ -24,42 +24,32 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:parentActivityName=".user_or_workerActivity"/>
+            android:label="@string/title_activity_login" />
         <activity android:name=".SignUpActivity"
-            android:label="Sign Up"
-            android:parentActivityName=".LoginActivity"/>
+            android:label="Sign Up" />
         <activity
             android:name=".NavigationDrawerActivity"
             android:label="@string/select_date"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Breakfast_lunch_dinner"
-            android:parentActivityName=".NavigationDrawerActivity"/>
+        <activity android:name=".Breakfast_lunch_dinner" />
         <activity
             android:name=".MemberLogin"
-            android:label="Sign in"
-            android:parentActivityName=".user_or_workerActivity"/>
+            android:label="Sign in" />
         <activity
             android:name=".MemberPersonalInfo"
-            android:label="@string/select_date"
-            android:parentActivityName=".user_or_workerActivity"/>
-        <activity android:name=".memberBraekfastLunchDinner"
-            android:parentActivityName=".MemberPersonalInfo"/>
+            android:label="@string/select_date"/>
+        <activity android:name=".memberBraekfastLunchDinner" />
         <activity
             android:name=".MemberUpload"
-            android:label="Upload food options"
-            android:parentActivityName=".memberBraekfastLunchDinner"/>
+            android:label="Upload food options" />
         <activity
             android:name=".MemberResult"
-            android:label="Polling Results"
-            android:parentActivityName=".MemberUpload"/>
+            android:label="Polling Results" />
         <activity
             android:name=".VotingActivity"
-            android:label="Poll"
-            android:parentActivityName=".Breakfast_lunch_dinner"/>
+            android:label="Poll" />
         <activity android:name=".StudentResult"
-            android:label="Responses submitted successfully"
-            android:parentActivityName=".VotingActivity">
+            android:label="Responses submitted successfully">
 
         </activity>
     </application>

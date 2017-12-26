@@ -19,7 +19,6 @@ public class StudentResult extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_result);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         firebaseAuth = FirebaseAuth.getInstance();
 

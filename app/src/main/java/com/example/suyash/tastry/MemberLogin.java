@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +23,6 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_login);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         email = (EditText)findViewById(R.id.memberemail);
@@ -71,5 +72,27 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
         if (v == login){
             userLogin();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.mmlogin, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_cancel) {
+            finish();
+            startActivity(new Intent(this, user_or_workerActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
