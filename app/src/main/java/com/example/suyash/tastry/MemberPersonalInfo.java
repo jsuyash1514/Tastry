@@ -13,15 +13,25 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
 
     private Button proceed;
     private DatePicker datePicker;
+    private Session session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_member_personal_info);
 
-
+        session = new Session(this);
+        if (!session.loggedIn()){
+            logout();
+        }
         proceed = (Button)findViewById(R.id.memberproceed);
         datePicker = (DatePicker)findViewById(R.id.membercalendar);
         proceed.setOnClickListener(this);
+    }
+
+    private void logout() {
+        session.setLoggedIn(false);
+        finish();
+        startActivity(new Intent(this,MemberLogin.class));
     }
 
     @Override
@@ -53,6 +63,7 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logOut) {
+            session.setLoggedIn(false);
             finish();
             startActivity(new Intent(this, MemberLogin.class));
         }

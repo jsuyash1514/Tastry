@@ -17,6 +17,7 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
     private EditText email , password;
     private Button login;
     private ProgressDialog progressDialog;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -24,7 +25,11 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
         setContentView(R.layout.activity_member_login);
 
 
-
+        session = new Session(this);
+        if (session.loggedIn()){
+            finish();
+            startActivity(new Intent(this,MemberPersonalInfo.class));
+        }
         email = (EditText)findViewById(R.id.memberemail);
         password = (EditText)findViewById(R.id.memberpassword);
         login = (Button)findViewById(R.id.memberbutton);
@@ -59,6 +64,7 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
 
         if (pw.equals(password)){
             finish();
+            session.setLoggedIn(true);
             startActivity(new Intent(getApplicationContext(),MemberPersonalInfo.class));
         }
         else{

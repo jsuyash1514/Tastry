@@ -26,6 +26,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
     public long r2=0,r3=0,r4=0,r5=0,r6=0,r7=0,r8=0;
     private DatabaseReference databaseReference;
     private Button logout,goBack;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+        session = new Session(this);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -320,6 +322,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             startActivity(new Intent(this,MemberPersonalInfo.class));
         }
         if (v == logout){
+            session.setLoggedIn(false);
             finish();
             startActivity(new Intent(this,MemberLogin.class));
         }
