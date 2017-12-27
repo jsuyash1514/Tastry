@@ -39,7 +39,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-        <CheckBox
+                <include layout="@layout/content_activity_voting"/>
+
+
+        <!--<CheckBox
             android:id="@+id/fi1"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -111,7 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="25sp"
-            android:padding="10dp"/>
+            android:padding="10dp"/>-->
 
 
                     <Button

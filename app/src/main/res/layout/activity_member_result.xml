@@ -31,7 +31,15 @@
         android:textColor="#FDFEFE"
         android:textSize="40sp"/>
 
-        <ScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <!--<ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -246,7 +254,7 @@
                 android:gravity="end"
                 android:layout_toRightOf="@id/m8"
                 android:layout_alignParentRight="true" />
-        </RelativeLayout>
+        </RelativeLayout>   -->
 
                 <Button
                     android:id="@+id/goBack2"
@@ -281,8 +289,8 @@
 
 
 
-            </LinearLayout>
-        </ScrollView>
+            <!--</LinearLayout>-->
+        <!--</ScrollView>-->
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
