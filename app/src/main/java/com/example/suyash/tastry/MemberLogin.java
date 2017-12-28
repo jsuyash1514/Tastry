@@ -27,8 +27,9 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
 
         session = new Session(this);
         if (session.loggedIn()){
-            finish();
+
             startActivity(new Intent(this,MemberPersonalInfo.class));
+            finish();
         }
         email = (EditText)findViewById(R.id.memberemail);
         password = (EditText)findViewById(R.id.memberpassword);
@@ -63,9 +64,10 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
         progressDialog.dismiss();
 
         if (pw.equals(password)){
-            finish();
+
             session.setLoggedIn(true);
             startActivity(new Intent(getApplicationContext(),MemberPersonalInfo.class));
+            finish();
         }
         else{
             Toast.makeText(getApplicationContext(), "Incorrect Email or Password",Toast.LENGTH_SHORT).show();
@@ -95,10 +97,18 @@ public class MemberLogin extends AppCompatActivity implements View.OnClickListen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cancel) {
-            finish();
+
             startActivity(new Intent(this, user_or_workerActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        startActivity(new Intent(this,user_or_workerActivity.class));
+        finish();
     }
 }

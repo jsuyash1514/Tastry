@@ -22,7 +22,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference databaseReference;
     private ProgressDialog progressDialog;
 
-    public String date;
+    public String date,oldDate;
     public String meal;
     public  TextView txtdate;
 
@@ -40,6 +40,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         if (bundle != null)
         {
             date = bundle.getString("passdate");
+            oldDate = bundle.getString("oldDate");
             txtdate = (TextView)findViewById(R.id.memberdate);
             txtdate.setText(date);
         }
@@ -71,10 +72,11 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v == result){
             Intent intent = new Intent(this,MemberResult.class);
-            finish();
+
             intent.putExtra("passmeal",meal);
             intent.putExtra("passdate",date);
             startActivity(intent);
+            finish();
         }
 
         if (v == upload){
@@ -96,23 +98,35 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         progressDialog.setMessage("Uploading Please wait...");
         progressDialog.show();
 
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference1 = db.child(oldDate);
+        databaseReference1.setValue(null);
 
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
         DatabaseReference mealdb = databaseReference.child(meal);
         if (!(fooditem1.equals(""))){mealdb.child("Food Option 1").setValue(fooditem1);}
+        else {mealdb.child("Food Option 1").setValue(null);}
         if (!(fooditem2.equals(""))){mealdb.child("Food Option 2").setValue(fooditem2);}
+        else {mealdb.child("Food Option 2").setValue(null);}
         if (!(fooditem3.equals(""))){mealdb.child("Food Option 3").setValue(fooditem3);}
+        else {mealdb.child("Food Option 3").setValue(null);}
         if (!(fooditem4.equals(""))){mealdb.child("Food Option 4").setValue(fooditem4);}
+        else {mealdb.child("Food Option 4").setValue(null);}
         if (!(fooditem5.equals(""))){mealdb.child("Food Option 5").setValue(fooditem5);}
+        else {mealdb.child("Food Option 5").setValue(null);}
         if (!(fooditem6.equals(""))){mealdb.child("Food Option 6").setValue(fooditem6);}
+        else {mealdb.child("Food Option 6").setValue(null);}
         if (!(fooditem7.equals(""))){mealdb.child("Food Option 7").setValue(fooditem7);}
+        else {mealdb.child("Food Option 7").setValue(null);}
         if (!(fooditem8.equals(""))){mealdb.child("Food Option 8").setValue(fooditem8);}
+        else {mealdb.child("Food Option 8").setValue(null);}
 
         progressDialog.dismiss();
         Toast.makeText(getApplicationContext(), "Food options uploaded successfully",Toast.LENGTH_LONG).show();
-        finish();
+
         startActivity(new Intent(this,MemberPersonalInfo.class));
+        finish();
 
     }
 
@@ -131,10 +145,21 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_datepicker) {
-            finish();
+
             startActivity(new Intent(this, MemberPersonalInfo.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        Intent intent = new Intent(this,memberBraekfastLunchDinner.class);
+        intent.putExtra("passmeal",meal);
+        intent.putExtra("passdate",date);
+        startActivity(intent);
+        finish();
     }
 }

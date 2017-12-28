@@ -1,13 +1,17 @@
 package com.example.suyash.tastry;
 
 import android.content.Context;
+import android.support.design.widget.TabLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by Suyash on 27-12-2017.
@@ -38,7 +42,9 @@ public class MemberResultTextAdapter extends RecyclerView.Adapter<MemberResultTe
         holder.foodOption.setText(mylist.getFoodOption());
         holder.Amount.setText(mylist.getNumber());
 
+
     }
+
 
     @Override
     public int getItemCount() {
@@ -53,6 +59,8 @@ public class MemberResultTextAdapter extends RecyclerView.Adapter<MemberResultTe
         }catch (Exception e){
 
         }
+
+        Log.d(TAG, "getItemCount: "+String.valueOf(arr));
         return arr;
     }
 

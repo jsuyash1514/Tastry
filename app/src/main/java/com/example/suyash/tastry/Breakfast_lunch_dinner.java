@@ -46,26 +46,29 @@ public class Breakfast_lunch_dinner extends AppCompatActivity implements View.On
     public void onClick(View v) {
         if (v == breakfast){
             Intent intent = new Intent(this,VotingActivity.class);
-            intent.putExtra("passmeal1","Breakfast");
-            intent.putExtra("passdate1",date);
-            finish();
+            intent.putExtra("passmeal","Breakfast");
+            intent.putExtra("passdate",date);
+
             startActivity(intent);
+            finish();
         }
 
         if (v == lunch){
             Intent intent = new Intent(this,VotingActivity.class);
-            intent.putExtra("passmeal1","Lunch");
-            intent.putExtra("passdate1",date);
-            finish();
+            intent.putExtra("passmeal","Lunch");
+            intent.putExtra("passdate",date);
+
             startActivity(intent);
+            finish();
         }
 
         if (v == dinner){
             Intent intent = new Intent(this,VotingActivity.class);
-            intent.putExtra("passmeal1","Dinner");
-            intent.putExtra("passdate1",date);
-            finish();
+            intent.putExtra("passmeal","Dinner");
+            intent.putExtra("passdate",date);
+
             startActivity(intent);
+            finish();
         }
     }
     @Override
@@ -83,10 +86,19 @@ public class Breakfast_lunch_dinner extends AppCompatActivity implements View.On
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_datepicker) {
-            finish();
+
             startActivity(new Intent(this, NavigationDrawerActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        Intent intent = new Intent(this,NavigationDrawerActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

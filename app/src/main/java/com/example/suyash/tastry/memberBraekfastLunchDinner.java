@@ -13,7 +13,7 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
     private TextView breakfast;
     private TextView lunch;
     private TextView dinner;
-    public String date;
+    public String date,oldDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +23,8 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
         {
-            date = bundle.getString("passdat");
+            date = bundle.getString("passdate");
+            oldDate = bundle.getString("oldDate");
             TextView txtdate = (TextView)findViewById(R.id.memberselectDate);
             txtdate.setText(date);
         }
@@ -43,24 +44,30 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
             Intent intent = new Intent(this,MemberUpload.class);
             intent.putExtra("passmeal","Breakfast");
             intent.putExtra("passdate",date);
-            finish();
+            intent.putExtra("oldDate",oldDate);
+
             startActivity(intent);
+            finish();
         }
 
         if (v == lunch){
             Intent intent = new Intent(this,MemberUpload.class);
             intent.putExtra("passmeal","Lunch");
             intent.putExtra("passdate",date);
-            finish();
+            intent.putExtra("oldDate",oldDate);
+
             startActivity(intent);
+            finish();
         }
 
         if (v == dinner){
             Intent intent = new Intent(this,MemberUpload.class);
             intent.putExtra("passmeal","Dinner");
             intent.putExtra("passdate",date);
-            finish();
+            intent.putExtra("oldDate",oldDate);
+
             startActivity(intent);
+            finish();
         }
     }
 
@@ -79,10 +86,18 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_datepicker) {
-            finish();
+
             startActivity(new Intent(this, MemberPersonalInfo.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        startActivity(new Intent(this,MemberPersonalInfo.class));
+        finish();
     }
 }

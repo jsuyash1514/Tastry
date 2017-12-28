@@ -54,7 +54,7 @@
 
 
 
-                <TextView
+                <!--<TextView
                     android:id="@+id/fi11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -152,6 +152,17 @@
                     android:textColorHint="@color/common_google_signin_btn_text_light_disabled"
                     android:textSize="20sp" />/>
 
+                   -->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+
 
                 <Button
                     android:id="@+id/goBack"
@@ -184,8 +195,11 @@
                     android:textSize="25sp"
                     android:textStyle="bold" />
 
+
             </LinearLayout>
         </ScrollView>
+
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

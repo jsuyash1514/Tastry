@@ -63,8 +63,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
          databaseReference = FirebaseDatabase.getInstance().getReference();
 
          if (firebaseAuth.getCurrentUser() == null){
-             finish();
+
              startActivity(new Intent(this,LoginActivity.class));
+             finish();
          }
         FirebaseUser user = firebaseAuth.getCurrentUser();
 
@@ -94,6 +95,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
         } else {
             super.onBackPressed();
         }
+
+        startActivity(new Intent(this,user_or_workerActivity.class));
+        finish();
     }
 
     @Override
@@ -106,13 +110,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View view){
         if(view == proceed){
-            finish();
+
             StringBuilder builder = new StringBuilder();
             builder.append(datePicker.getYear()+"/").append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth());
             String dmy = builder.toString();
             Intent intent = new Intent(this,Breakfast_lunch_dinner.class);
             intent.putExtra("passdate",dmy);
             startActivity(intent);
+            finish();
 
         }
     }
@@ -127,12 +132,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements View.
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logOut) {
             firebaseAuth.signOut();
-            finish();
+
             startActivity(new Intent(this, LoginActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

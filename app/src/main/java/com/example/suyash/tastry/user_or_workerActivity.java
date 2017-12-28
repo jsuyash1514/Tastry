@@ -23,14 +23,16 @@ public class user_or_workerActivity extends AppCompatActivity implements View.On
     public void onClick(View view){
         if (view == student)
         {
-            finish();
             startActivity(new Intent(this,LoginActivity.class));
+            finish();
+
         }
 
         if (view == member)
         {
-            finish();
             startActivity(new Intent(this,MemberLogin.class));
+            finish();
+
         }
     }
 }

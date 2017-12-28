@@ -72,8 +72,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() != null){
-            finish();
+
             startActivity(new Intent(getApplicationContext(),NavigationDrawerActivity.class));
+            finish();
         }
 
 
@@ -116,8 +117,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             progressDialog.dismiss();
 
                             if (task.isSuccessful()){
-                                finish();
+
                                 startActivity(new Intent(getApplicationContext(),NavigationDrawerActivity.class));
+                                finish();
                             }
 
                             else{
@@ -134,8 +136,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if(view == signup){
-                finish();
+
                 startActivity(new Intent(this,SignUpActivity.class));
+            finish();
         }
     }
 
@@ -154,11 +157,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_cancel) {
-            finish();
+
             startActivity(new Intent(this, user_or_workerActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed(){
+
+        startActivity(new Intent(this,user_or_workerActivity.class));
+        finish();
     }
 
 }

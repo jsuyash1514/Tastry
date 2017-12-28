@@ -30,20 +30,30 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
 
     private void logout() {
         session.setLoggedIn(false);
-        finish();
+
         startActivity(new Intent(this,MemberLogin.class));
+        finish();
     }
 
     @Override
     public void onClick(View v) {
         if(v == proceed){
-            finish();
+
             StringBuilder b = new StringBuilder();
             b.append(datePicker.getYear()+"/").append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth());
             String dm = b.toString();
             Intent intent = new Intent(this,memberBraekfastLunchDinner.class);
-            intent.putExtra("passdat",dm);
+            intent.putExtra("passdate",dm);
+            int month,year;
+            if (datePicker.getMonth() == 0)  {month = 11;year = (datePicker.getYear()-1);}
+            else if (datePicker.getMonth() == 1) {month = 12;year = (datePicker.getYear()-1);}
+            else {month = (datePicker.getMonth() - 1); year =datePicker.getYear();};
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(year+"/").append(month);
+            String months = stringBuilder.toString();
+            intent.putExtra("oldDate",months);
             startActivity(intent);
+            finish();
 
         }
 
@@ -64,11 +74,20 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logOut) {
             session.setLoggedIn(false);
-            finish();
+
             startActivity(new Intent(this, MemberLogin.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onBackPressed(){
+
+        startActivity(new Intent(this,user_or_workerActivity.class));
+        finish();
     }
 
 

@@ -46,8 +46,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
         if (firebaseAuth.getCurrentUser() != null){
-            finish();
+
             startActivity(new Intent(getApplicationContext(),NavigationDrawerActivity.class));
+            finish();
         }
 
         progressDialog = new ProgressDialog(this);
@@ -121,8 +122,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             currentUserDB.child("name").setValue(name);
                             currentUserDB.child("EnrollmentNumber").setValue(enrl);
                             currentUserDB.child("Bhawan").setValue(bhawan);
-                            finish();
+
                             startActivity(new Intent(getApplicationContext(), NavigationDrawerActivity.class));
+                            finish();
                         }
                             else{
                                 Toast.makeText(getApplicationContext(), "Could not register, Please try again...",Toast.LENGTH_SHORT).show();
@@ -137,8 +139,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
            registerUser();
        }
        if(view == already){
-           finish();
+
            startActivity(new Intent(this,LoginActivity.class));
+           finish();
        }
+    }
+    @Override
+    public void onBackPressed(){
+
+        startActivity(new Intent(this,LoginActivity.class));
+        finish();
     }
 }
