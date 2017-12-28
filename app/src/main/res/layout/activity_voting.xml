@@ -53,12 +53,12 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
-                        android:background="@color/colorAccent"
+                        android:background="@drawable/round_button"
                         android:text="Vote"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_marginBottom="20dp"
-                        android:textColor="#FDFEFE"
+                        android:textColor="@color/Black"
                         android:textSize="25sp"
                         android:textStyle="bold" />
 

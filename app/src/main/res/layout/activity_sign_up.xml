@@ -112,7 +112,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="Register"/>
+            android:padding="12dp"
+            android:background="@drawable/round_button"
+            android:text="Register"
+            android:textStyle="bold"
+            android:textColor="@color/Black"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/alreadyAcc"
@@ -120,7 +125,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:text="Already have account? Sign In"/>
+            android:text="Already have account? Sign In"
+            android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package com.example.suyash.tastry;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -47,6 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
+import static com.example.suyash.tastry.R.color.colorAccentDark;
 
 /**
  * A login screen that offers login via email/password.
@@ -129,6 +131,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     });
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View view){
         if (view == login){
@@ -136,7 +139,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if(view == signup){
-
                 startActivity(new Intent(this,SignUpActivity.class));
             finish();
         }

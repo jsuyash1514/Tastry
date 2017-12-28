@@ -1,5 +1,6 @@
 package com.example.suyash.tastry;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -368,10 +369,10 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
         if (v == goBack){
-
             startActivity(new Intent(this,MemberPersonalInfo.class));
             finish();
         }

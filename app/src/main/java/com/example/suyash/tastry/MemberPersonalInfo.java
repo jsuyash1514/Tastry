@@ -1,5 +1,6 @@
 package com.example.suyash.tastry;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,10 +36,10 @@ public class MemberPersonalInfo extends AppCompatActivity implements View.OnClic
         finish();
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View v) {
         if(v == proceed){
-
             StringBuilder b = new StringBuilder();
             b.append(datePicker.getYear()+"/").append((datePicker.getMonth()+1)+"/").append(datePicker.getDayOfMonth());
             String dm = b.toString();
