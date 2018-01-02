@@ -25,7 +25,8 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".SignUpActivity"
+        <activity
+            android:name=".SignUpActivity"
             android:label="Sign Up" />
         <activity
             android:name=".NavigationDrawerActivity"
@@ -37,7 +38,7 @@
             android:label="Sign in" />
         <activity
             android:name=".MemberPersonalInfo"
-            android:label="@string/select_date"/>
+            android:label="@string/select_date" />
         <activity android:name=".memberBraekfastLunchDinner" />
         <activity
             android:name=".MemberUpload"
@@ -48,10 +49,13 @@
         <activity
             android:name=".VotingActivity"
             android:label="Poll" />
-        <activity android:name=".StudentResult"
-            android:label="Responses submitted successfully">
-
-        </activity>
+        <activity
+            android:name=".StudentResult"
+            android:label="Responses submitted successfully" />
+        <activity android:name=".MemberAddFood"
+            android:label="Add Food option"/>
+        <activity android:name=".MemberEditFood"
+            android:label="Edit Food option"></activity>
     </application>
 
 </manifest>

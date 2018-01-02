@@ -2,29 +2,47 @@ package com.example.suyash.tastry;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class MemberUpload extends AppCompatActivity implements View.OnClickListener{
 
     private Button upload, result;
-    private EditText fi1,fi2,fi3,fi4,fi5,fi6,fi7,fi8;
+//    private EditText fi1,fi2,fi3,fi4,fi5,fi6,fi7,fi8;
     private DatabaseReference databaseReference;
+    private static int k=1;
+    public long n;
     private ProgressDialog progressDialog;
-
+    public String names1;
+    public FloatingActionButton floatingActionButton;
     public String date,oldDate;
     public String meal;
     public  TextView txtdate;
+    public List<MealMemberUpload> list;
+    public MemberUploadTextAdapter textAdapter;
+    public MemberUploadTextAdapter.MemberUploadTextHolder textHolder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +52,12 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         databaseReference = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
 
+        RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView3);
 
+
+        list = new ArrayList<>();
+
+        textAdapter = new MemberUploadTextAdapter(MemberUpload.this,list);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null)
@@ -54,18 +77,37 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             TextView txtmeal = (TextView)findViewById(R.id.membermeal);
             txtmeal.setText(meal);
         }
-        fi1 = (EditText)findViewById(R.id.fooditem1);
-        fi2 = (EditText)findViewById(R.id.fooditem2);
-        fi3 = (EditText)findViewById(R.id.fooditem3);
-        fi4 = (EditText)findViewById(R.id.fooditem4);
-        fi5 = (EditText)findViewById(R.id.fooditem5);
-        fi6 = (EditText)findViewById(R.id.fooditem6);
-        fi7 = (EditText)findViewById(R.id.fooditem7);
-        fi8 = (EditText)findViewById(R.id.fooditem8);
         upload = (Button)findViewById(R.id.upload);
         result = (Button)findViewById(R.id.viewResults);
         upload.setOnClickListener(this);
         result.setOnClickListener(this);
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.add);
+        floatingActionButton.setOnClickListener(this);
+
+
+        DatabaseReference upload = databaseReference.child(date).child(meal);
+        upload.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                n = dataSnapshot.getChildrenCount();
+                Log.d(TAG, "getChildrenCount(in memberUpload Activity): "+String.valueOf(n));
+                for (int i=1; i<=n; i++){
+                    final MealMemberUpload mealMemberUpload = new MealMemberUpload();
+                    names1 = dataSnapshot.child("Food Option " + i).getValue(String.class);
+                            if (names1 != null && !names1.isEmpty()){
+                                mealMemberUpload.setUpload(names1);
+                                list.add(mealMemberUpload);
+                                textAdapter.notifyDataSetChanged();
+                            }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+        RecyclerView.LayoutManager recycler = new LinearLayoutManager(MemberUpload.this);
+        recyclerView.setLayoutManager(recycler);
+        recyclerView.setAdapter(textAdapter);
     }
 
     @Override
@@ -82,47 +124,48 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         if (v == upload){
             uploadFoodItem();
         }
+        if (v == floatingActionButton){
+
+            Intent intent = new Intent(this,MemberAddFood.class);
+            intent.putExtra("passmeal",meal);
+            intent.putExtra("passdate",date);
+            startActivity(intent);
+            finish();
+
+        }
 
     }
 
     private void uploadFoodItem() {
-        final String fooditem1 = fi1.getText().toString().trim();
-        final String fooditem2 = fi2.getText().toString().trim();
-        final String fooditem3 = fi3.getText().toString().trim();
-        final String fooditem4 = fi4.getText().toString().trim();
-        final String fooditem5 = fi5.getText().toString().trim();
-        final String fooditem6 = fi6.getText().toString().trim();
-        final String fooditem7 = fi7.getText().toString().trim();
-        final String fooditem8 = fi8.getText().toString().trim();
-
-        progressDialog.setMessage("Uploading Please wait...");
-        progressDialog.show();
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference databaseReference1 = db.child(oldDate);
+        final DatabaseReference databaseReference1 = db.child(oldDate);
         databaseReference1.setValue(null);
 
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
-        DatabaseReference mealdb = databaseReference.child(meal);
-        if (!(fooditem1.equals(""))){mealdb.child("Food Option 1").setValue(fooditem1);}
-        else {mealdb.child("Food Option 1").setValue(null);}
-        if (!(fooditem2.equals(""))){mealdb.child("Food Option 2").setValue(fooditem2);}
-        else {mealdb.child("Food Option 2").setValue(null);}
-        if (!(fooditem3.equals(""))){mealdb.child("Food Option 3").setValue(fooditem3);}
-        else {mealdb.child("Food Option 3").setValue(null);}
-        if (!(fooditem4.equals(""))){mealdb.child("Food Option 4").setValue(fooditem4);}
-        else {mealdb.child("Food Option 4").setValue(null);}
-        if (!(fooditem5.equals(""))){mealdb.child("Food Option 5").setValue(fooditem5);}
-        else {mealdb.child("Food Option 5").setValue(null);}
-        if (!(fooditem6.equals(""))){mealdb.child("Food Option 6").setValue(fooditem6);}
-        else {mealdb.child("Food Option 6").setValue(null);}
-        if (!(fooditem7.equals(""))){mealdb.child("Food Option 7").setValue(fooditem7);}
-        else {mealdb.child("Food Option 7").setValue(null);}
-        if (!(fooditem8.equals(""))){mealdb.child("Food Option 8").setValue(fooditem8);}
-        else {mealdb.child("Food Option 8").setValue(null);}
+        DatabaseReference upload = databaseReference.child(date).child(meal);
+        upload.addValueEventListener(new ValueEventListener() {
+                                         @Override
+                                         public void onDataChange(DataSnapshot dataSnapshot) {
+                                             long n = dataSnapshot.getChildrenCount();
+                                             for (int i = 1; i <= n; i++) {
+                                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+                                                 DatabaseReference mealdb = databaseReference.child(meal);
+                                                 if (list.get(i).getUpload() != null) {
 
-        progressDialog.dismiss();
+                                                     mealdb.child("Food Option " + i).setValue(list.get(i).getUpload());
+                                                 } else {
+                                                     mealdb.child("Food Option " + i).setValue(null);
+                                                 }
+                                             }
+                                         }
+
+                                         @Override
+                                         public void onCancelled(DatabaseError databaseError) {
+
+                                         }
+                                     });
+
         Toast.makeText(getApplicationContext(), "Food options uploaded successfully",Toast.LENGTH_LONG).show();
 
         startActivity(new Intent(this,MemberPersonalInfo.class));
