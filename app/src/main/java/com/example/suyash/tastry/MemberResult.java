@@ -33,6 +33,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
     private Button logout,goBack;
     private Session session;
     private ProgressDialog progressDialog;
+    public String oldDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
             date = bundle.getString("passdate");
             txtdate = (TextView)findViewById(R.id.resultdate);
             txtdate.setText(date);
+            oldDate = bundle.getString("oldDate");
         }
 
 
@@ -154,6 +156,7 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
         Intent intent = new Intent(this,MemberUpload.class);
         intent.putExtra("passmeal",meal);
         intent.putExtra("passdate",date);
+        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }

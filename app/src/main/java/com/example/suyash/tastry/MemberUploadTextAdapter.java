@@ -1,6 +1,7 @@
 package com.example.suyash.tastry;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -52,6 +53,7 @@ class MemberUploadTextAdapter extends RecyclerView.Adapter<MemberUploadTextAdapt
         holder.upload.setText(mylist.getUpload());
         holder.upload.setTag(position);
 
+
     }
 
     @Override
@@ -72,13 +74,25 @@ class MemberUploadTextAdapter extends RecyclerView.Adapter<MemberUploadTextAdapt
         return arr;
     }
 
-    public class MemberUploadTextHolder extends RecyclerView.ViewHolder {
+
+
+
+    public class MemberUploadTextHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView upload;
         public MemberUploadTextHolder(View itemView) {
             super(itemView);
             upload = itemView.findViewById(R.id.list_upload);
+            upload.setOnClickListener(this);
 
 
+        }
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == upload.getId()){
+                Intent intent = new Intent(v.getContext(), MemberEditFood.class);
+                context.startActivity(intent);
+
+            }
         }
     }
 }

@@ -42,6 +42,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
     public List<MealMemberUpload> list;
     public MemberUploadTextAdapter textAdapter;
     public MemberUploadTextAdapter.MemberUploadTextHolder textHolder;
+    public static int j;
 
 
     @Override
@@ -66,6 +67,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             oldDate = bundle.getString("oldDate");
             txtdate = (TextView)findViewById(R.id.memberdate);
             txtdate.setText(date);
+
         }
 
 
@@ -83,6 +85,8 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         result.setOnClickListener(this);
         floatingActionButton = (FloatingActionButton)findViewById(R.id.add);
         floatingActionButton.setOnClickListener(this);
+
+
 
 
         DatabaseReference upload = databaseReference.child(date).child(meal);
@@ -105,6 +109,28 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+        DatabaseReference upload1 = databaseReference.child(date).child("add").child(meal);
+        upload1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                long m = dataSnapshot.getChildrenCount();
+                Log.d(TAG, "getChildrenCount(in add node): "+String.valueOf(m));
+                for (int i=1; i<=m; i++){
+                    final MealMemberUpload mealMemberUpload = new MealMemberUpload();
+                    names1 = dataSnapshot.child("Food Option " + i).getValue(String.class);
+                    if (names1 != null && !names1.isEmpty()){
+                        mealMemberUpload.setUpload(names1);
+                        list.add(mealMemberUpload);
+                        textAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         RecyclerView.LayoutManager recycler = new LinearLayoutManager(MemberUpload.this);
         recyclerView.setLayoutManager(recycler);
         recyclerView.setAdapter(textAdapter);
@@ -117,6 +143,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
             intent.putExtra("passmeal",meal);
             intent.putExtra("passdate",date);
+            intent.putExtra("oldDate",oldDate);
             startActivity(intent);
             finish();
         }
@@ -129,6 +156,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(this,MemberAddFood.class);
             intent.putExtra("passmeal",meal);
             intent.putExtra("passdate",date);
+            intent.putExtra("oldDate",oldDate);
             startActivity(intent);
             finish();
 
@@ -141,30 +169,21 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference databaseReference1 = db.child(oldDate);
         databaseReference1.setValue(null);
+        final DatabaseReference databaseReference2 = db.child(date).child("add");
+        databaseReference2.setValue(null);
 
 
-        DatabaseReference upload = databaseReference.child(date).child(meal);
-        upload.addValueEventListener(new ValueEventListener() {
-                                         @Override
-                                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                             long n = dataSnapshot.getChildrenCount();
-                                             for (int i = 1; i <= n; i++) {
-                                                 DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
-                                                 DatabaseReference mealdb = databaseReference.child(meal);
-                                                 if (list.get(i).getUpload() != null) {
+        long n = list.size();
+        for (int i = 1; i <= n; i++) {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
+            DatabaseReference mealdb = databaseReference.child(meal);
+            if (list.get(i-1).getUpload() != null) {
+                mealdb.child("Food Option " + i).setValue(list.get(i-1).getUpload());
+            } else {
+                mealdb.child("Food Option " + i).setValue(null);
+            }
+        }
 
-                                                     mealdb.child("Food Option " + i).setValue(list.get(i).getUpload());
-                                                 } else {
-                                                     mealdb.child("Food Option " + i).setValue(null);
-                                                 }
-                                             }
-                                         }
-
-                                         @Override
-                                         public void onCancelled(DatabaseError databaseError) {
-
-                                         }
-                                     });
 
         Toast.makeText(getApplicationContext(), "Food options uploaded successfully",Toast.LENGTH_LONG).show();
 

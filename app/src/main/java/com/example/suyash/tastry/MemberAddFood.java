@@ -20,11 +20,12 @@ import static android.content.ContentValues.TAG;
 
 public class MemberAddFood extends AppCompatActivity implements View.OnClickListener {
 
-    public String date,meal;
+    public String date,meal,oldDate;
     public TextView txtdate,txtmeal;
-    private DatabaseReference databaseReference;
     public Button add;
     public EditText food;
+    public static int i = 1;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_member_add_food);
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
         add = (Button)findViewById(R.id.btn_add_food);
         add.setOnClickListener(this);
         food = (EditText)findViewById(R.id.addfood);
@@ -45,6 +47,7 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
             meal = bundle.getString("passmeal");
             txtmeal = (TextView) findViewById(R.id.add_meal);
             txtmeal.setText(meal);
+            oldDate = bundle.getString("oldDate");
         }
 
 
@@ -61,61 +64,36 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
     private void addfood() {
 
         Log.d(TAG, "Entered addFood method");
+        String names6 = food.getText().toString().trim();
+        if (names6 != null && !names6.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Food option added successfully",Toast.LENGTH_LONG).show();
+            DatabaseReference mealdb = databaseReference.child(date).child("add");
+            mealdb.child(meal).child("Food Option " + i).setValue(names6);
+            i++;
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "No Food option added",Toast.LENGTH_LONG).show();
 
-        DatabaseReference upload = databaseReference.child(date).child(meal);
-        upload.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                long q = dataSnapshot.getChildrenCount();
-                long t = q + 1;
-                Log.d(TAG, "getChildrenCount(q): " + String.valueOf(q));
-                Log.d(TAG, "getChildrenCount(t): " + String.valueOf(t));
+        }
 
-                String names6 = food.getText().toString();
-                if (names6 != null && !names6.isEmpty()) {
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
-                    DatabaseReference mealdb = databaseReference.child(meal);
-                    mealdb.child("Food Option " + t).setValue(names6);
-                    Toast.makeText(getApplicationContext(), "Food option added successfully",Toast.LENGTH_LONG).show();
+        Intent inten = new Intent(getApplicationContext(),MemberUpload.class);
+        inten.putExtra("passmeal",meal);
+        inten.putExtra("passdate",date);
+        inten.putExtra("oldDate",oldDate);
+        Log.d(TAG, "Intent to MemberUpload");
+        finish();
+        startActivity(inten);
 
-                    Intent inten = new Intent(getApplicationContext(),MemberUpload.class);
-                    inten.putExtra("passmeal",meal);
-                    inten.putExtra("passdate",date);
-                    Log.d(TAG, "Intent to MemberUpload by if statement");
-                    startActivity(inten);
-                    finish();
-                }
-                else {
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child(date);
-                    DatabaseReference mealdb = databaseReference.child(meal);
-                    mealdb.child("Food Option " + t).setValue(null);
-                    Toast.makeText(getApplicationContext(), "No Food option added",Toast.LENGTH_LONG).show();
-
-                    Intent inten = new Intent(getApplicationContext(),MemberUpload.class);
-                    inten.putExtra("passmeal",meal);
-                    inten.putExtra("passdate",date);
-                    Log.d(TAG, "Intent to MemberUpload by else statement");
-                    startActivity(inten);
-                    finish();
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
     }
-
     @Override
     public void onBackPressed(){
 
         Intent intent = new Intent(this,MemberUpload.class);
         intent.putExtra("passmeal",meal);
         intent.putExtra("passdate",date);
+        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }
