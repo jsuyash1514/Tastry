@@ -13,7 +13,7 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
     private TextView breakfast;
     private TextView lunch;
     private TextView dinner;
-    public String date,oldDate;
+    public static String date,oldDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,9 +25,10 @@ public class memberBraekfastLunchDinner extends AppCompatActivity implements Vie
         {
             date = bundle.getString("passdate");
             oldDate = bundle.getString("oldDate");
-            TextView txtdate = (TextView)findViewById(R.id.memberselectDate);
-            txtdate.setText(date);
         }
+        TextView txtdate = (TextView)findViewById(R.id.memberselectDate);
+        txtdate.setText(date);
+
 
         breakfast = (TextView)findViewById(R.id.memberbreakfast);
         lunch = (TextView)findViewById(R.id.memberlunch);

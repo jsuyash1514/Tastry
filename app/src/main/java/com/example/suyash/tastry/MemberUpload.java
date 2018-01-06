@@ -39,8 +39,8 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
     private ProgressDialog progressDialog;
     public String names1;
     public FloatingActionButton floatingActionButton;
-    public String date,oldDate;
-    public String meal;
+    public static String date,oldDate;
+    public static String meal;
     public  TextView txtdate;
     public List<MealMemberUpload> list;
     public MemberUploadTextAdapter textAdapter;
@@ -69,10 +69,12 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         {
             date = bundle.getString("passdate");
             oldDate = bundle.getString("oldDate");
-            txtdate = (TextView)findViewById(R.id.memberdate);
-            txtdate.setText(date);
 
         }
+
+        txtdate = (TextView)findViewById(R.id.memberdate);
+        txtdate.setText(date);
+
 
 
 
@@ -80,9 +82,11 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         if (b != null)
         {
             meal = bundle.getString("passmeal");
-            TextView txtmeal = (TextView)findViewById(R.id.membermeal);
-            txtmeal.setText(meal);
         }
+
+        TextView txtmeal = (TextView)findViewById(R.id.membermeal);
+        txtmeal.setText(meal);
+
         upload = (Button)findViewById(R.id.upload);
         result = (Button)findViewById(R.id.viewResults);
         upload.setOnClickListener(this);
@@ -118,7 +122,10 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        DatabaseReference upload1 = databaseReference.child(date).child("add").child(meal);
+
+
+
+      /*  DatabaseReference upload1 = databaseReference.child(date).child("add").child(meal);
         upload1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -137,7 +144,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
+        });   */
 
 
 
@@ -255,13 +262,6 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
         edit.setValue(null);
 
-
-
-
-
-
-
-
         RecyclerView.LayoutManager recycler = new LinearLayoutManager(MemberUpload.this);
         recyclerView.setLayoutManager(recycler);
         recyclerView.setAdapter(textAdapter);
@@ -291,12 +291,8 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("oldDate",oldDate);
             finish();
             startActivity(intent);
-
-
         }
-
     }
-
     private void uploadFoodItem() {
 
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
@@ -352,10 +348,15 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed(){
 
         Intent intent = new Intent(this,memberBraekfastLunchDinner.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        textAdapter.notifyDataSetChanged();
     }
 
     public  class MemberUploadTextAdapter extends RecyclerView.Adapter<com.example.suyash.tastry.MemberUpload.MemberUploadTextAdapter.MemberUploadTextHolder> {

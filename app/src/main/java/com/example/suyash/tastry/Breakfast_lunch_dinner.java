@@ -15,7 +15,7 @@ public class Breakfast_lunch_dinner extends AppCompatActivity implements View.On
     private TextView breakfast;
     private TextView lunch;
     private TextView dinner;
-    String date;
+    private static String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,11 @@ public class Breakfast_lunch_dinner extends AppCompatActivity implements View.On
         if (bundle != null)
         {
             date = bundle.getString("passdate");
-            TextView txtdate = (TextView)findViewById(R.id.selectDate);
-            txtdate.setText(date);
         }
+
+        TextView txtdate = (TextView)findViewById(R.id.selectDate);
+        txtdate.setText(date);
+
 
 
 

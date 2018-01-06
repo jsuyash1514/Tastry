@@ -25,7 +25,8 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
     public TextView txtdate,txtmeal;
     private EditText editText;
     public int position;
-    public String string,date,meal,oldDate;
+    public String string;
+    public static String date,meal,oldDate;
     private DatabaseReference databaseReference;
     public static int i=1;
     @Override
@@ -38,13 +39,16 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             date = bundle.getString("passdate");
-            txtdate = (TextView) findViewById(R.id.edit_date);
-            txtdate.setText(date);
+
             meal = bundle.getString("passmeal");
-            txtmeal = (TextView) findViewById(R.id.edit_meal);
-            txtmeal.setText(meal);
+
             oldDate = bundle.getString("oldDate");
         }
+
+        txtdate = (TextView) findViewById(R.id.edit_date);
+        txtdate.setText(date);
+        txtmeal = (TextView) findViewById(R.id.edit_meal);
+        txtmeal.setText(meal);
 
         Intent intent = getIntent();
         position = intent.getIntExtra("position",1000);
@@ -86,9 +90,6 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
 
 
         Intent intent = new Intent(this, MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }
@@ -99,9 +100,6 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
 
 
         Intent intent = new Intent(this,MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }
@@ -110,9 +108,6 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
     public void onBackPressed(){
 
         Intent intent = new Intent(this,MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }

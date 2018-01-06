@@ -20,11 +20,12 @@ import static android.content.ContentValues.TAG;
 
 public class MemberAddFood extends AppCompatActivity implements View.OnClickListener {
 
-    public String date,meal,oldDate;
+    public  static String date,meal,oldDate;
     public TextView txtdate,txtmeal;
     public Button add;
     public EditText food;
-    public static int i = 1;
+    public static long i = 1;
+    long n;
     private DatabaseReference databaseReference;
 
     @Override
@@ -42,13 +43,14 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             date = bundle.getString("passdate");
-            txtdate = (TextView) findViewById(R.id.add_date);
-            txtdate.setText(date);
             meal = bundle.getString("passmeal");
-            txtmeal = (TextView) findViewById(R.id.add_meal);
-            txtmeal.setText(meal);
             oldDate = bundle.getString("oldDate");
         }
+
+        txtdate = (TextView) findViewById(R.id.add_date);
+        txtdate.setText(date);
+        txtmeal = (TextView) findViewById(R.id.add_meal);
+        txtmeal.setText(meal);
 
 
     }
@@ -63,27 +65,39 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
 
     private void addfood() {
 
-        Log.d(TAG, "Entered addFood method");
-        String names6 = food.getText().toString().trim();
-        if (names6 != null && !names6.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Food option added successfully",Toast.LENGTH_LONG).show();
-            DatabaseReference mealdb = databaseReference.child(date).child("add");
-            mealdb.child(meal).child("Food Option " + i).setValue(names6);
-            i++;
-        }
-        else {
-            Toast.makeText(getApplicationContext(), "No Food option added",Toast.LENGTH_LONG).show();
+        final DatabaseReference food1 = databaseReference.child(date).child(meal);
+        food1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                n = dataSnapshot.getChildrenCount();
 
-        }
+                i = n+1;
 
-        Intent inten = new Intent(getApplicationContext(),MemberUpload.class);
-        inten.putExtra("passmeal",meal);
-        inten.putExtra("passdate",date);
-        inten.putExtra("oldDate",oldDate);
-        Log.d(TAG, "Intent to MemberUpload");
-        finish();
-        startActivity(inten);
+                Log.d(TAG, "Entered addFood method wih n= " + String.valueOf(n));
+                String names6 = food.getText().toString().trim();
+                if (names6 != null && !names6.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Food option added successfully",Toast.LENGTH_LONG).show();
+                    DatabaseReference mealdb = databaseReference.child(date).child(meal);
+                    mealdb.child("Food Option " + i).setValue(names6);
+                    i++;
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "No Food option added",Toast.LENGTH_LONG).show();
 
+                }
+
+                Intent inten = new Intent(getApplicationContext(),MemberUpload.class);
+                inten.putExtra("add",names6);
+                Log.d(TAG, "Intent to MemberUpload");
+                finish();
+                startActivity(inten);
+
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
 
     }
@@ -91,9 +105,6 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
     public void onBackPressed(){
 
         Intent intent = new Intent(this,MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }

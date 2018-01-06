@@ -27,13 +27,13 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 public class MemberResult extends AppCompatActivity implements View.OnClickListener{
-    public  String date,meal;
+    public static String date,meal;
     public TextView txtdate;
     private DatabaseReference databaseReference;
     private Button logout,goBack;
     private Session session;
     private ProgressDialog progressDialog;
-    public String oldDate;
+    public static String oldDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +60,20 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
         if (bundle != null)
         {
             date = bundle.getString("passdate");
-            txtdate = (TextView)findViewById(R.id.resultdate);
-            txtdate.setText(date);
             oldDate = bundle.getString("oldDate");
         }
 
+        txtdate = (TextView)findViewById(R.id.resultdate);
+        txtdate.setText(date);
 
 
         Bundle b = getIntent().getExtras();
         if (b != null)
         {
             meal = bundle.getString("passmeal");
-            TextView txtmeal = (TextView)findViewById(R.id.resultmeal);
-            txtmeal.setText(meal);
         }
+        TextView txtmeal = (TextView)findViewById(R.id.resultmeal);
+        txtmeal.setText(meal);
 
         goBack = (Button)findViewById(R.id.goBack2);
         logout = (Button)findViewById(R.id.logout2);
@@ -154,9 +154,6 @@ public class MemberResult extends AppCompatActivity implements View.OnClickListe
     public void onBackPressed(){
 
         Intent intent = new Intent(this,MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
         startActivity(intent);
         finish();
     }
