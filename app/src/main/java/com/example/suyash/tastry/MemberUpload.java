@@ -1,6 +1,7 @@
 package com.example.suyash.tastry;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +9,16 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +35,6 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
     private Button upload, result;
 //    private EditText fi1,fi2,fi3,fi4,fi5,fi6,fi7,fi8;
     private DatabaseReference databaseReference;
-    private static int k=1;
     public long n;
     private ProgressDialog progressDialog;
     public String names1;
@@ -52,6 +55,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading...");
 
         RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerView3);
 
@@ -89,13 +93,16 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
 
 
+
+
+
         DatabaseReference upload = databaseReference.child(date).child(meal);
         upload.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 n = dataSnapshot.getChildrenCount();
                 Log.d(TAG, "getChildrenCount(in memberUpload Activity): "+String.valueOf(n));
-                for (int i=1; i<=n; i++){
+                for (int i=1; i<=50; i++){
                     final MealMemberUpload mealMemberUpload = new MealMemberUpload();
                     names1 = dataSnapshot.child("Food Option " + i).getValue(String.class);
                             if (names1 != null && !names1.isEmpty()){
@@ -110,13 +117,14 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
         DatabaseReference upload1 = databaseReference.child(date).child("add").child(meal);
         upload1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long m = dataSnapshot.getChildrenCount();
                 Log.d(TAG, "getChildrenCount(in add node): "+String.valueOf(m));
-                for (int i=1; i<=m; i++){
+                for (int i=1; i<=50; i++){
                     final MealMemberUpload mealMemberUpload = new MealMemberUpload();
                     names1 = dataSnapshot.child("Food Option " + i).getValue(String.class);
                     if (names1 != null && !names1.isEmpty()){
@@ -131,9 +139,133 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+
+
+        DatabaseReference delete1 =databaseReference.child(date).child("delete").child(meal);
+        delete1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                final String del = dataSnapshot.getValue(String.class);
+                Log.d(TAG,"del = " + del);
+                if (del != null && !del.isEmpty()) {
+                    Log.d(TAG,"Entered if statement for deleting " + del);
+                    final DatabaseReference food = databaseReference.child(date).child(meal);
+                    food.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                Log.d(TAG,"Entered for loop for deleting " + del);
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (del.equals(FoodOption)) {
+                                    food.child("Food Option " + j).setValue(null);
+                                    FoodOption = null;
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                    final DatabaseReference food1 = databaseReference.child(date).child("add").child(meal);
+                    food1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (del.equals(FoodOption)) {
+                                    food1.child("Food Option " + j).setValue(null);
+                                    FoodOption = null;
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                else {
+                    Log.d(TAG, "Not entered if becoz del = " + del);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        delete1.setValue(null);
+
+        DatabaseReference edit = databaseReference.child(date).child("edit").child(meal);
+        edit.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final String initial = dataSnapshot.child("Initial").getValue(String.class);
+                final String change = dataSnapshot.child("change").getValue(String.class);
+                Log.d(TAG,"Initial = " + initial + " and change = " + change);
+                if (initial != null && !initial.isEmpty()) {
+                    Log.d(TAG,"Entered if statement for changing " + initial);
+                    final DatabaseReference food = databaseReference.child(date).child(meal);
+                    food.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (initial.equals(FoodOption)) {
+                                    food.child("Food Option " + j).setValue(change);
+                                    FoodOption = null;
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                    final DatabaseReference food1 = databaseReference.child(date).child("add").child(meal);
+                    food1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (initial.equals(FoodOption)) {
+                                    food1.child("Food Option " + j).setValue(change);
+                                    FoodOption = null;
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                else {
+                    Log.d(TAG, "Not entered if becoz initial = " + initial);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        edit.setValue(null);
+
+
+
+
+
+
+
+
         RecyclerView.LayoutManager recycler = new LinearLayoutManager(MemberUpload.this);
         recyclerView.setLayoutManager(recycler);
         recyclerView.setAdapter(textAdapter);
+
     }
 
     @Override
@@ -157,8 +289,9 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
             intent.putExtra("passmeal",meal);
             intent.putExtra("passdate",date);
             intent.putExtra("oldDate",oldDate);
-            startActivity(intent);
             finish();
+            startActivity(intent);
+
 
         }
 
@@ -224,4 +357,89 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
         finish();
     }
+
+    public  class MemberUploadTextAdapter extends RecyclerView.Adapter<com.example.suyash.tastry.MemberUpload.MemberUploadTextAdapter.MemberUploadTextHolder> {
+        Context context;
+        List<MealMemberUpload> list;
+        MealMemberUpload mylist;
+
+        public MemberUploadTextAdapter(Context context, List<MealMemberUpload> list) {
+
+            this.context = context;
+            this.list = list;
+        }
+
+        @Override
+        public com.example.suyash.tastry.MemberUpload.MemberUploadTextAdapter.MemberUploadTextHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.member_upload_list_item,parent,false);
+            com.example.suyash.tastry.MemberUpload.MemberUploadTextAdapter.MemberUploadTextHolder textHolder = new com.example.suyash.tastry.MemberUpload.MemberUploadTextAdapter.MemberUploadTextHolder(view);
+            return textHolder;
+
+
+
+
+        }
+
+        @Override
+        public void onBindViewHolder(final com.example.suyash.tastry.MemberUpload.MemberUploadTextAdapter.MemberUploadTextHolder holder, int position) {
+
+            mylist = list.get(position);
+            holder.upload.setText(mylist.getUpload());
+            holder.upload.setTag(position);
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+            int arr = 0;
+            try {
+                if (list.size()== 0){
+                    arr =0;
+                }
+                else {
+                    arr = list.size();
+                }
+            }catch (Exception e){
+
+            }
+
+            Log.d(TAG, "getItemCount: "+String.valueOf(arr));
+            return arr;
+        }
+
+
+
+
+        public class MemberUploadTextHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+            public TextView upload;
+            public MemberUploadTextHolder(View itemView) {
+                super(itemView);
+                upload = itemView.findViewById(R.id.list_upload);
+                upload.setOnClickListener(this);
+
+
+
+
+            }
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == upload.getId()){
+                    Intent intent = new Intent(v.getContext(), MemberEditFood.class);
+                    int position = (int)upload.getTag();
+                    intent.putExtra("passmeal",meal);
+                    intent.putExtra("passdate",date);
+                    intent.putExtra("oldDate",oldDate);
+                    intent.putExtra("position",position);
+                    intent.putExtra("item",list.get(position).getUpload());
+                    startActivity(intent);
+                    finish();
+
+                }
+            }
+        }
+    }
+
 }
+
+
