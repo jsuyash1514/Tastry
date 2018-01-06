@@ -87,7 +87,10 @@ public class MemberAddFood extends AppCompatActivity implements View.OnClickList
                 }
 
                 Intent inten = new Intent(getApplicationContext(),MemberUpload.class);
-                inten.putExtra("add",names6);
+//                inten.putExtra("add",names6);
+                inten.putExtra("passmeal",meal);
+                inten.putExtra("passdate",date);
+                inten.putExtra("oldDate",oldDate);
                 Log.d(TAG, "Intent to MemberUpload");
                 finish();
                 startActivity(inten);
