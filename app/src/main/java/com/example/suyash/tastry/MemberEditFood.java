@@ -84,13 +84,80 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
         edit1.child("edit").child(meal).child("change").setValue(string);
 
 
+        final DatabaseReference edit = databaseReference.child(date).child("edit").child(meal);
+        edit.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final String initial = dataSnapshot.child("Initial").getValue(String.class);
+                final String change = dataSnapshot.child("change").getValue(String.class);
+                Log.d(TAG,"Initial = " + initial + " and change = " + change);
+                if (initial != null && !initial.isEmpty()) {
+                    Log.d(TAG,"Entered if statement for changing " + initial);
+                    final DatabaseReference food = databaseReference.child(date).child(meal);
+                    food.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (initial.equals(FoodOption)) {
+                                    food.child("Food Option " + j).setValue(change);
+                                    FoodOption = null;
+                                    edit.setValue(null);
+                                    Intent intent = new Intent(getApplicationContext(), MemberUpload.class);
+                                    intent.putExtra("passmeal",meal);
+                                    intent.putExtra("passdate",date);
+                                    intent.putExtra("oldDate",oldDate);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                    final DatabaseReference food1 = databaseReference.child(date).child("add").child(meal);
+                    food1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (initial.equals(FoodOption)) {
+                                    food1.child("Food Option " + j).setValue(change);
+                                    FoodOption = null;
+                                    edit.setValue(null);
+                                    Intent intent = new Intent(getApplicationContext(), MemberUpload.class);
+                                    intent.putExtra("passmeal",meal);
+                                    intent.putExtra("passdate",date);
+                                    intent.putExtra("oldDate",oldDate);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                else {
+                    Log.d(TAG, "Not entered if becoz initial = " + initial);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
 
-        Intent intent = new Intent(this, MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
-        startActivity(intent);
-        finish();
+
+
+
+
+
     }
 
     private void deleteFood() {
@@ -98,12 +165,80 @@ public class MemberEditFood extends AppCompatActivity implements View.OnClickLis
         delete.setValue(item);
 
 
-        Intent intent = new Intent(this,MemberUpload.class);
-        intent.putExtra("passmeal",meal);
-        intent.putExtra("passdate",date);
-        intent.putExtra("oldDate",oldDate);
-        startActivity(intent);
-        finish();
+        final DatabaseReference delete1 =databaseReference.child(date).child("delete").child(meal);
+        delete1.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+                final String del = dataSnapshot.getValue(String.class);
+                Log.d(TAG,"del = " + del);
+                if (del != null && !del.isEmpty()) {
+                    Log.d(TAG,"Entered if statement for deleting " + del);
+                    final DatabaseReference food = databaseReference.child(date).child(meal);
+                    food.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                Log.d(TAG,"Entered for loop for deleting " + del);
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (del.equals(FoodOption)) {
+                                    food.child("Food Option " + j).setValue(null);
+                                    FoodOption = null;
+                                    delete1.setValue(null);
+
+                                    Intent intent = new Intent(getApplicationContext(),MemberUpload.class);
+                                    intent.putExtra("passmeal",meal);
+                                    intent.putExtra("passdate",date);
+                                    intent.putExtra("oldDate",oldDate);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                    final DatabaseReference food1 = databaseReference.child(date).child("add").child(meal);
+                    food1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            long n = dataSnapshot.getChildrenCount();
+                            String FoodOption;
+                            for (int j = 1; j <= 50; j++) {
+                                FoodOption = (String) dataSnapshot.child("Food Option " + j).getValue();
+                                if (del.equals(FoodOption)) {
+                                    food1.child("Food Option " + j).setValue(null);
+                                    FoodOption = null;
+                                    delete1.setValue(null);
+
+                                    Intent intent = new Intent(getApplicationContext(),MemberUpload.class);
+                                    intent.putExtra("passmeal",meal);
+                                    intent.putExtra("passdate",date);
+                                    intent.putExtra("oldDate",oldDate);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+                }
+                else {
+                    Log.d(TAG, "Not entered if becoz del = " + del);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+
+
+
     }
 
     @Override
