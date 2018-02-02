@@ -97,7 +97,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
 
         DatabaseReference upload = databaseReference.child(date).child(meal);
-        upload.addValueEventListener(new ValueEventListener() {
+        upload.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 n = dataSnapshot.getChildrenCount();
@@ -119,7 +119,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
 
         DatabaseReference upload1 = databaseReference.child(date).child("add").child(meal);
-        upload1.addValueEventListener(new ValueEventListener() {
+        upload1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 long m = dataSnapshot.getChildrenCount();
@@ -142,7 +142,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
 
 
         DatabaseReference delete1 =databaseReference.child(date).child("delete").child(meal);
-        delete1.addValueEventListener(new ValueEventListener() {
+        delete1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 final String del = dataSnapshot.getValue(String.class);
@@ -150,7 +150,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
                 if (del != null && !del.isEmpty()) {
                     Log.d(TAG,"Entered if statement for deleting " + del);
                     final DatabaseReference food = databaseReference.child(date).child(meal);
-                    food.addValueEventListener(new ValueEventListener() {
+                    food.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             long n = dataSnapshot.getChildrenCount();
@@ -169,7 +169,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
                         }
                     });
                     final DatabaseReference food1 = databaseReference.child(date).child("add").child(meal);
-                    food1.addValueEventListener(new ValueEventListener() {
+                    food1.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             long n = dataSnapshot.getChildrenCount();
@@ -199,7 +199,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
         delete1.setValue(null);
 
         DatabaseReference edit = databaseReference.child(date).child("edit").child(meal);
-        edit.addValueEventListener(new ValueEventListener() {
+        edit.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 final String initial = dataSnapshot.child("Initial").getValue(String.class);
@@ -208,7 +208,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
                 if (initial != null && !initial.isEmpty()) {
                     Log.d(TAG,"Entered if statement for changing " + initial);
                     final DatabaseReference food = databaseReference.child(date).child(meal);
-                    food.addValueEventListener(new ValueEventListener() {
+                    food.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             long n = dataSnapshot.getChildrenCount();
@@ -226,7 +226,7 @@ public class MemberUpload extends AppCompatActivity implements View.OnClickListe
                         }
                     });
                     final DatabaseReference food1 = databaseReference.child(date).child("add").child(meal);
-                    food1.addValueEventListener(new ValueEventListener() {
+                    food1.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             long n = dataSnapshot.getChildrenCount();
